@@ -1,0 +1,2 @@
+class GameCategory < ApplicationRecord
+end
