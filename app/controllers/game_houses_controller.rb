@@ -1,4 +1,5 @@
 class GameHousesController < ApplicationController
+  before_action :authorize_request, except: :create
   before_action :set_game_house, only: %i[ show update destroy ]
 
   # GET /game_houses

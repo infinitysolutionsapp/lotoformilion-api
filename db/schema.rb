@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_19_005103) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_21_231240) do
   create_table "bets", force: :cascade do |t|
     t.json "result"
     t.json "move"
@@ -43,6 +43,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_19_005103) do
     t.datetime "updated_at", null: false
     t.index ["GameCategory_id"], name: "index_games_on_GameCategory_id"
     t.index ["GameHouse_id"], name: "index_games_on_GameHouse_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "username"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "bets", "Games"

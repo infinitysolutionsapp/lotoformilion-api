@@ -2,6 +2,7 @@ require 'rest-client'
 require 'json'
 
 class GamesController < ApplicationController
+  before_action :authorize_request, except: :create
   before_action :set_game, only: %i[ show update destroy ]
 
   def seq_gen_b(n, a=[*n])

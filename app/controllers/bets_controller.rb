@@ -1,4 +1,5 @@
 class BetsController < ApplicationController
+  before_action :authorize_request, except: :create
   before_action :set_bet, only: %i[ show update destroy ]
 
   # GET /bets
