@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
-  resources :bets
-  resources :games
-  resources :game_categories
-  resources :game_houses
+  resources :game_houses do
+    resources :game_categories do
+      get '/games/new', to: 'games#new'
+      resources :games
+      resources :games do
+        resources :bets 
+      end
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
