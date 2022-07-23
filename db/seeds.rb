@@ -9,3 +9,11 @@
 game_houses = GameHouse.create([{ name: "LOTOFÁCIL" }, { name: "MEGA-SENA" }])
 game_categories = GameCategory.create([{ name: "ERRE 4" }, { name: "ERRE 7" }])
 
+User.create({username:"Rafael",password:"123456", email:"ferreira.rafaelc@gmail.com"})
+
+
+# "Password can't be blank",
+#         "Email can't be blank",
+#         "Email is invalid",
+#         "Username can't be blank",
+#         "Password is too short (minimum is 6 characters)"

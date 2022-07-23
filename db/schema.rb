@@ -23,9 +23,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_231240) do
   end
 
   create_table "game_categories", force: :cascade do |t|
+    t.integer "game_houses_id", null: false
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["game_houses_id"], name: "index_game_categories_on_game_houses_id"
   end
 
   create_table "game_houses", force: :cascade do |t|
@@ -35,14 +37,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_231240) do
   end
 
   create_table "games", force: :cascade do |t|
-    t.integer "GameCategory_id", null: false
-    t.integer "GameHouse_id", null: false
     t.string "name"
     t.json "last_results"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["GameCategory_id"], name: "index_games_on_GameCategory_id"
-    t.index ["GameHouse_id"], name: "index_games_on_GameHouse_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -55,6 +53,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_231240) do
   end
 
   add_foreign_key "bets", "Games"
-  add_foreign_key "games", "GameCategories"
-  add_foreign_key "games", "GameHouses"
+  add_foreign_key "game_categories", "game_houses", column: "game_houses_id"
 end

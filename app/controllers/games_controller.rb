@@ -46,8 +46,6 @@ class GamesController < ApplicationController
       odds: dezenas.uniq.sort.select { |n| !n.to_i.even?  },
     }
 
-    p freq
-
     @games = Game.all
 
     render json: response
@@ -61,10 +59,34 @@ class GamesController < ApplicationController
 
   # POST /games
   def create
-    @game = Game.new(game_params)
+  
+    pairs = params[:pairs]
+    odds = params[:odds]
+    amount_of_dozens = params[:dozens]
+    game = params[:game]
+    amount_of_bets = 14
+    amount_of_numbers_in_bet = 25
+    sorted_numbers = []
+    
+    new_game = {}
+    game_name = "JOGO-LOTERIA-#{Time.now.strftime("%m-%d-%Y")}"
+    new_game[:name] = game_name
+    @game = Game.new(new_game)
+
+
+    if amount_of_dozens
+      for bet_index in 1..amount_of_bets do
+        for number in 1..amount_of_dozens do
+            sorted_number = rand(1..amount_of_numbers_in_bet)
+            sorted_numbers.push(sorted_number)
+        end
+        Bet.create(dozens: amount_of_dozens, move: sorted_numbers, Game: @game)
+        sorted_numbers = []
+      end      
+    end
 
     if @game.save
-      render json: @game, status: :created, location: @game
+      render json: { game: @game, bets: @game.bets }, status: :created, location: @game
     else
       render json: @game.errors, status: :unprocessable_entity
     end
@@ -92,6 +114,7 @@ class GamesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def game_params
-      params.require(:game).permit(:GameCategory_id, :GameHouse_id, :name, :last_results)
+      params
     end
 end
+
