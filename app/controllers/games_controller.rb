@@ -73,23 +73,22 @@ class GamesController < ApplicationController
     new_game[:name] = game_name
     @game = Game.new(new_game)
 
+    @game.save
 
+    p amount_of_dozens
     if amount_of_dozens
       for bet_index in 1..amount_of_bets do
         for number in 1..amount_of_dozens do
             sorted_number = rand(1..amount_of_numbers_in_bet)
             sorted_numbers.push(sorted_number)
         end
-        Bet.create(dozens: amount_of_dozens, move: sorted_numbers, Game: @game)
+        Bet.create(dozens: amount_of_dozens, move: sorted_numbers, games_id: @game[:id])
         sorted_numbers = []
       end      
     end
 
-    if @game.save
-      render json: { game: @game, bets: @game.bets }, status: :created, location: @game
-    else
-      render json: @game.errors, status: :unprocessable_entity
-    end
+    render json: { game: @game, bets: Bet.where(games_id: @game.id) }, status: :created, location: @game
+   
   end
 
   # PATCH/PUT /games/1

@@ -1,3 +1,3 @@
 class Bet < ApplicationRecord
-  belongs_to :Game
+  # belongs_to :Game
 end
