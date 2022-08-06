@@ -75,11 +75,13 @@ class GamesController < ApplicationController
 
     @game.save
 
-    p amount_of_dozens
     if amount_of_dozens
       for bet_index in 1..amount_of_bets do
-        for number in 1..amount_of_dozens do
-            sorted_number = rand(1..amount_of_numbers_in_bet)
+        sorted_numbers.push(*pairs)
+        sorted_numbers.push(*odds)
+        for number in 13..amount_of_dozens do
+            # sorted_number = rand(1..amount_of_numbers_in_bet)
+            sorted_number = ([*1..amount_of_numbers_in_bet] - sorted_numbers).sample
             sorted_numbers.push(sorted_number)
         end
         Bet.create(dozens: amount_of_dozens, move: sorted_numbers, games_id: @game[:id])
