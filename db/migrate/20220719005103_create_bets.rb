@@ -5,7 +5,7 @@ class CreateBets < ActiveRecord::Migration[7.0]
       t.json :move
       t.integer :dozens
       t.json :simulations
-      t.references :Game, null: false, foreign_key: true
+      t.references :games, null: false, foreign_key: true
 
       t.timestamps
     end

@@ -11,19 +11,22 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_07_21_231240) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "bets", force: :cascade do |t|
     t.json "result"
     t.json "move"
     t.integer "dozens"
     t.json "simulations"
-    t.integer "Game_id", null: false
+    t.bigint "games_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["Game_id"], name: "index_bets_on_Game_id"
+    t.index ["games_id"], name: "index_bets_on_games_id"
   end
 
   create_table "game_categories", force: :cascade do |t|
-    t.integer "game_houses_id", null: false
+    t.bigint "game_houses_id", null: false
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -52,6 +55,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_231240) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "bets", "Games"
+  add_foreign_key "bets", "games", column: "games_id"
   add_foreign_key "game_categories", "game_houses", column: "game_houses_id"
 end
