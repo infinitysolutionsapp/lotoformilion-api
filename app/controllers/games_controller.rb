@@ -18,14 +18,16 @@ class GamesController < ApplicationController
 
   # GET /games/new
   def new
+    
+    limit = params["limit"] || "50"
+    concourse = params["concourse"] || "lotofacil"
 
-    response = RestClient.get('https://login.portaldaloto.com.br/callbacks/concurso/lotofacil/limite/50', {accept: :json})
+    response = RestClient.get("https://login.portaldaloto.com.br/callbacks/concurso/#{concourse}/limite/#{limit}", {accept: :json})
     dezenas = []
     results = JSON.parse(response.body)
     results.map { |result|
       dezenas.concat(result['dezenas'])
     }
-
     freq = Hash.new(0)
     dezenas.each { |x| freq[x] += 1 }
     pairs = Array.new(0)
@@ -42,6 +44,7 @@ class GamesController < ApplicationController
     response = {
       last_results: ordered_frequency,
       last_result: results.first,
+      all_results: results,
       pairs: dezenas.uniq.sort.select { |n| n.to_i.even?  },
       odds: dezenas.uniq.sort.select { |n| !n.to_i.even?  },
     }
