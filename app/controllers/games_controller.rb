@@ -57,7 +57,7 @@ class GamesController < ApplicationController
 
   # GET /games/1
   def show
-    render json: @game
+    render json: { game: @game, bets: Bet.where(games_id: @game.id) }, status: :created, location: @game
   end
 
   # POST /games
