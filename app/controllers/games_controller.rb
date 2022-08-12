@@ -67,7 +67,7 @@ class GamesController < ApplicationController
     odds = params[:odds]
     amount_of_dozens = params[:dozens]
     game = params[:game]
-    amount_of_bets = 14
+    amount_of_bets = params[:amount_of_bets] || 14
     amount_of_numbers_in_bet = 25
     sorted_numbers = []
     
