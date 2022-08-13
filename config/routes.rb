@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   resources :game_categories
   resources :games
   resources :bets 
-   
+
+  post '/braip', to: 'braip#create'
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
