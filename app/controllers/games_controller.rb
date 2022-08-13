@@ -11,7 +11,11 @@ class GamesController < ApplicationController
 
   # GET /games
   def index
-    @games = Game.all
+    header = request.headers['Authorization']
+    header = header.split(' ').last if header
+    @decoded = JsonWebToken.decode(header)
+
+    @games = Game.where(user_id: @decoded[:user_id])
 
     render json: @games
   end
@@ -71,9 +75,15 @@ class GamesController < ApplicationController
     amount_of_numbers_in_bet = 25
     sorted_numbers = []
     
+    header = request.headers['Authorization']
+    header = header.split(' ').last if header
+    @decoded = JsonWebToken.decode(header)
+    @current_user = User.find(@decoded[:user_id])
+
     new_game = {}
     game_name = "JOGO-LOTERIA-#{Time.now.strftime("%m-%d-%Y")}"
     new_game[:name] = game_name
+    new_game[:user_id] = @current_user.id
     @game = Game.new(new_game)
 
     @game.save
