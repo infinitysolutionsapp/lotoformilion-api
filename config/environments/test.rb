@@ -37,6 +37,28 @@ Rails.application.configure do
   config.active_storage.service = :test
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.delivery_method = :smtp
+  host = 'http://api.infinitysolutionsapp.com/' #replace with your own url
+  config.action_mailer.default_url_options = { host: host }
+  
+  # SMTP settings for gmail
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :domain               => "gmail",
+    :port                 => 587,
+    :user_name            => "ferreira.rafaelc@gmail.com",
+    :password             => "nqariyjnhkvbpkxs",
+    :authentication       => "plain",
+    :enable_starttls_auto => true
+  }
+
+
+
+
+
+
+
+
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the

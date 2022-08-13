@@ -15,7 +15,7 @@ class GamesController < ApplicationController
     header = header.split(' ').last if header
     @decoded = JsonWebToken.decode(header)
 
-    @games = Game.where(user_id: @decoded[:user_id])
+    @games = Game.where(user_id: @decoded[:user_id]).order(created_at: :desc)
 
     render json: @games
   end
