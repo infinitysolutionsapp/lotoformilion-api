@@ -16,6 +16,7 @@ gem "puma", "~> 5.0"
 gem "rest-client"
 
 gem "json"
+gem 'cancancan'
 
 gem 'jwt'
 # Use ActiveModel has_secure_password
