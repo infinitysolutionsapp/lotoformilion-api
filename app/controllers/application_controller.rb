@@ -4,6 +4,10 @@ class ApplicationController < ActionController::API
         render json: { error: 'not_found' }
     end
     
+    def current_user
+        @current_user
+     end
+
     def authorize_request
             header = request.headers['Authorization']
             header = header.split(' ').last if header

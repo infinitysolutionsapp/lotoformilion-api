@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  points: 1
+  receipt: MyText
+  msg: MyText
+  name: MyText
+  loteria: MyString
+
+two:
+  points: 1
+  receipt: MyText
+  msg: MyText
+  name: MyText
+  loteria: MyString
