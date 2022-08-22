@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :transactions
   resources :events
   
-  resources :users, param: :_username
+  resources :users
   post '/auth/login', to: 'authentication#login'
   # get '/*a', to: 'application#not_found'
   get '/games/new', to: 'games#new'
