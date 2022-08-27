@@ -6,4 +6,10 @@ class User < ApplicationRecord
     validates :password,
               length: { minimum: 6 },
               if: -> { new_record? || !password.nil? }
+
+    def as_json(options = {})
+        super(options.merge({ except: [:password_digest] }))
+    end
+
+
 end
